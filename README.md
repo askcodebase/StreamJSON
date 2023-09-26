@@ -1,6 +1,38 @@
 # StreamJson Format 
 
-# Specifications
+# TL; DR
+
+StreamJson Format Specifications:
+1. StreamJson is a format based on standard JSON with the addition of streaming text.
+2. It includes two elements, JSON data and streaming text, separated by the Unicode symbol '┄'.
+3. The JSON block can contain '@ref', referring to the corresponding streaming text.
+4. Multiple JSON blocks and streaming texts are supported, each pair separated by the Unicode symbol '┄'.
+Example:
+```json
+{
+  "createCodeSymbol": {
+    "symbol": {
+      "name": "debounce",
+      "kind": 11,
+      "content": "@ref"
+    },
+    "relativePosition": "endOfFile"
+  }
+}
+┄
+function debounce(func: Function, wait: number): Function {
+  let timeout: number;
+  return function(this: any, ...args: any[]): void {
+    clearTimeout(timeout);
+    timeout = window.setTimeout(() => {
+      func.apply(this, args);
+    }, wait);
+  };
+}
+```
+In this example the '@ref' inside the JSON block refers to the function debounce(...) in the streaming text.
+
+# Full Specifications
 
 1. The StreamJson format is developed based on standard JSON. 
 
